@@ -1,0 +1,35 @@
+By default WordPress does not allow a user to add categories to Pages. However adding categories and tags to Pages is quite simple. 
+
+Add the following code snippets in functions.php of your installed theme.
+
+/**
+ * Assign Category and Tags to WordPress Page.
+ */
+function add_taxonomies_to_pages() {
+    register_taxonomy_for_object_type( 'post_tag', 'page' );
+    register_taxonomy_for_object_type( 'category', 'page' );
+}
+add_action( 'init', 'add_taxonomies_to_pages' );
+
+if ( ! is_admin() ) {
+    add_action( 'pre_get_posts', 'category_and_tag_archives' );
+}
+
+/**
+ * Customize WP query
+ */
+function category_and_tag_archives( $wp_query ) {
+    $my_post_array = array('post','page');
+
+    if ( $wp_query->get( 'category_name' ) || $wp_query->get( 'cat' ) )
+        $wp_query->set( 'post_type', $my_post_array );
+
+    if ( $wp_query->get( 'tag' ) )
+        $wp_query->set( 'post_type', $my_post_array );
+}
+
+N.B: This method is simple but not recommended. In case you switch the theme , all the changes made will be lost. Utilizing the Code Snippets Plugin(https://wordpress.org/plugins/code-snippets/) is the recommended method. The code snippet plugin allows you to add php snippets without modifying any code. So in future if you switch your theme provider, the customization will not break. Another benefit is that you can easily export the snippets.
+
+Enjoy !!!
+
+Reference: http://spicemailer.com/wordpress/add-categories-tags-pages-wordpress/
