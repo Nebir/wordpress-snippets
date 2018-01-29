@@ -1,0 +1,22 @@
+Step-1: Backup your project code and database
+
+	a) All wordpress files of project folder - Back up your files creating a .zip file
+	b) Export the databse - Go to the local phpmyadmin and select the table. At the top bar, you will find export option. Click that. Check the export method and format. Method will be "quick" and format will be "sql". Now click the "Go" button. Your database sql file will be downloaded. Keep it safely.
+
+Step-2: Make ready your server
+	
+	a) Login to the cPanel and make the folder in public_html from File Manager, where you want to ulpoad your project.
+	b) Configure databse from Mysql Databases. 
+		- Create a database name.
+		- Create an user with a username and password
+		- Add user to the databse. Tick "All Privileges" so that user have full power to control the databse. Lastly click "Make Changes" button.
+	c) Now go to the phpmyadmin of your cPanel. You will find the database in left side, created in previous step.
+	d) Click your databse. Likely, your local phpmyadmin, here is a "Import" option. Click that. Now you can upload your sql file, exported from your local server. Make sure that, Partial Import checkbox is unchecked and Format is sql.
+
+Now everything looks fine, But when you try to browse the site, you may find everything except content. Don't be embrassed. Here is the solution.
+
+Step-3: Final Touch
+	a) After import the database, you will find all the tables of database. One of the table is "wp_options" if you didn't change the table prefix while you were developing locally. Browse that table and find the "siteurl" from option_name column. Click the Edit option and another screen appears where you can change the option_value. In there you will find the url of your local server. Change it to your domain like "http://your_domain_name/if_any_subdomain_exists"
+	b) Like the "siteurl", you'll also find "home". Edit it as the same way. Change your local url to your domain_url.
+
+Enjoy!!!
